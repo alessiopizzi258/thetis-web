@@ -1,25 +1,61 @@
 import VisionCard from '../components/ui/VisionCard';
 import { Link } from 'react-router-dom';
 
-const Home = () => (
-  <div className="animate-fade-in">
-    {/* Hero Section */}
-    <section className="relative h-screen flex items-center justify-center bg-midnight text-ivory overflow-hidden">
-      <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=2071')] bg-cover bg-center animate-subtle-zoom" />
-      <div className="relative z-10 text-center px-6 max-w-5xl">
-        <span className="inline-block mb-4 text-gold-custom tracking-[0.5em] uppercase text-[10px] font-bold">Thetis APS</span>
-        <h1 className="text-6xl md:text-[120px] font-serif mb-8 leading-none italic">L’Arte vive.</h1>
-        <p className="max-w-xl mx-auto text-lg md:text-xl font-light mb-12 opacity-80 leading-relaxed">
-          Spazio alla cultura, voce alle idee. Siamo una comunità dedicata a promuovere la bellezza attraverso eventi e visioni.
-        </p>
-        <Link to="/visioni" className="px-12 py-5 bg-gold-custom text-white uppercase tracking-[0.2em] text-xs hover:bg-gold-light transition-all rounded-sm">
-          Entra nel mondo Thetis
-        </Link>
-      </div>
-    </section>
+const Home = () => {
+  return (
+    <div className="overflow-hidden">
+      {/* HERO SECTION FANTASTICA */}
+      <section className="relative h-screen w-full flex items-center justify-center bg-midnight overflow-hidden">
+        
+        {/* Sfondo Animato */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-black/40 z-10" /> {/* Overlay per contrasto */}
+          <img 
+            src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=2071" 
+            className="w-full h-full object-cover animate-image-zoom opacity-60"
+            alt="Thetis Background"
+          />
+        </div>
 
-    {/* Sezione Citazione (Filler di impatto) */}
-    <section className="py-32 bg-ivory text-center px-6">
+        {/* Contenuto con Entrata Scaglionata */}
+        <div className="relative z-20 text-center px-6">
+          
+          {/* Titolo con effetto "Reveal" */}
+          <div className="overflow-hidden mb-4">
+            <h1 className="text-6xl md:text-[140px] font-serif text-ivory leading-none italic animate-reveal-text">
+              L’Arte vive
+            </h1>
+          </div>
+          
+          <div className="overflow-hidden mb-8">
+            <h1 className="text-5xl md:text-[100px] font-serif text-gold-custom leading-none animate-reveal-text [animation-delay:0.3s]">
+              con Thetis.
+            </h1>
+          </div>
+
+          {/* Sottotitolo e Bottone */}
+          <div className="animate-fade-in-up [animation-delay:1s] opacity-0 [animation-fill-mode:forwards]">
+            <p className="max-w-xl mx-auto text-ivory/80 text-lg md:text-xl font-light mb-12 tracking-wide">
+              Spazio alla cultura, voce alle idee. <br/>
+              Siamo una comunità dedicata alla bellezza.
+            </p>
+            
+            <Link to="/visioni" className="group relative inline-flex items-center justify-center px-12 py-5 overflow-hidden font-bold text-ivory transition duration-300 ease-out border border-ivory rounded-sm shadow-md">
+              <span className="absolute inset-0 w-full h-full px-5 py-3 rounded bg-gold-custom -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+              <span className="relative uppercase tracking-[0.3em] text-xs">Entra nel mondo Thetis</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Scroll Indicator Animato */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce opacity-50">
+          <div className="w-[1px] h-12 bg-ivory mx-auto"></div>
+        </div>
+      </section>
+
+      {/* IL RESTO DELLE SEZIONI (Citazioni, Visioni, etc.) */}
+      <section className="bg-ivory py-32 px-6">
+        {/* Sezione Citazione (Filler di impatto) */}
       <div className="max-w-3xl mx-auto">
         <span className="text-4xl font-serif text-gold-custom">“</span>
         <p className="text-3xl md:text-4xl font-serif italic text-midnight leading-snug">
@@ -61,8 +97,12 @@ const Home = () => (
           </div>
         ))}
       </div>
-    </section>
-  </div>
-);
+          {/* ... qui inserisci le sezioni di prima ... */}
+      </section>
+    </div>
+  );
+};
+
+    
 
 export default Home;
