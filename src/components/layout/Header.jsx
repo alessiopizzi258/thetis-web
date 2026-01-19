@@ -38,20 +38,23 @@ const Header = () => {
         </Link>
         
         <div className="hidden md:flex items-center space-x-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`text-[10px] uppercase tracking-[0.3em] font-bold relative group h-5 overflow-hidden ${
-                location.pathname === link.path ? 'text-gold-custom' : useWhiteText ? 'text-ivory' : 'text-midnight'
-              }`}
-            >
-              <motion.div className="flex flex-col transition-transform duration-500 group-hover:-translate-y-1/2">
-                <span className="h-5 flex items-center">{link.name}</span>
-                <span className="h-5 flex items-center text-gold-custom italic font-serif lowercase tracking-widest">{link.name}</span>
-              </motion.div>
-            </Link>
-          ))}
+          // Sostituisci la parte dei navLinks in Header.jsx
+{navLinks.map((link) => (
+  <Link
+    key={link.path}
+    to={link.path}
+    className={`relative text-[10px] uppercase tracking-[0.3em] font-bold group h-6 overflow-hidden ${
+      location.pathname === link.path ? 'text-gold-custom' : useWhiteText ? 'text-ivory' : 'text-midnight'
+    }`}
+  >
+    <div className="flex flex-col transition-transform duration-500 ease-[0.76, 0, 0.24, 1] group-hover:-translate-y-1/2">
+      <span className="h-6 flex items-center">{link.name}</span>
+      <span className="h-6 flex items-center text-gold-custom italic font-serif lowercase tracking-[0.1em]">
+        {link.name}
+      </span>
+    </div>
+  </Link>
+))}
         </div>
 
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden">
