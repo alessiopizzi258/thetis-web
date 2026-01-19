@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@studio-freight/react-lenis": "^0.0.47",
+    "@supabase/supabase-js": "^2.90.1",
     "framer-motion": "^12.27.0",
     "lucide-react": "^0.562.0",
     "react": "^19.2.0",
