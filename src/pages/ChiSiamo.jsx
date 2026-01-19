@@ -1,51 +1,52 @@
-const ChiSiamo = () => {
-  const sociOnorari = ["Dr. Elena Rossi", "Prof. Marco Verdi", "Arch. Sofia Neri"];
-
-  return (
-    <div className="pb-24 animate-fade-in">
-      {/* Hero Mission */}
-      <section className="py-32 bg-midnight text-ivory px-6 text-center relative overflow-hidden">
-        <div className="relative z-10">
-          <h1 className="text-5xl md:text-6xl font-serif mb-8 italic">Un progetto condiviso.</h1>
-          <p className="max-w-3xl mx-auto text-xl md:text-2xl font-light leading-relaxed opacity-80 italic">
-            "Thetis nasce per rendere la cultura un bene alla portata di tutti. Non
+// src/pages/ChiSiamo.jsx
+const ChiSiamo = () => (
+  <div className="animate-fade-in">
+    <section className="py-32 bg-midnight text-ivory px-6">
+      <div className="max-w-5xl mx-auto text-center">
+        <h1 className="text-6xl font-serif italic mb-12">Un progetto condiviso.</h1>
+        <div className="grid md:grid-cols-2 gap-16 text-left items-center">
+          <p className="text-xl font-light leading-relaxed opacity-90">
+            Thetis nasce per rendere la cultura un bene alla portata di tutti. Non
             siamo solo un’associazione, ma un laboratorio dove video, musica e arte si
-            incontrano."
+            incontrano.
+          </p>
+          <p className="text-xl font-light leading-relaxed opacity-70 border-l border-gold-custom pl-8 italic">
+            Crediamo nella partecipazione come motore per far nascere nuove idee e trasformare il territorio.
           </p>
         </div>
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-gold-custom/10 blur-3xl rounded-full -mr-32 -mb-32"></div>
-      </section>
+      </div>
+    </section>
 
-      {/* Content Section */}
-      <section className="max-w-7xl mx-auto px-6 mt-24 grid md:grid-cols-2 gap-20 items-start">
-        <div className="space-y-8">
-          <div>
-            <h2 className="text-3xl font-serif mb-6 border-b border-gold-custom pb-2 inline-block italic text-midnight">La nostra Mission</h2>
-            <p className="text-slate-600 text-lg leading-relaxed font-light">
-              Fondata nel 2020, Thetis aggrega artisti, educatori e professionisti della cultura. 
-              Operiamo sul territorio nazionale per creare ponti tra istituzioni e cittadini.
-            </p>
-          </div>
-          <p className="text-slate-600 text-lg leading-relaxed font-light">
-            Crediamo nella partecipazione come motore per far nascere nuove idee. Il nostro 
-            impegno quotidiano è volto a trasformare la fruizione passiva in protagonismo culturale.
-          </p>
+    {/* Sezione Valori (Riempe molto bene la pagina) */}
+    <section className="py-24 max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-16">
+      {[
+        { t: "Inclusione", d: "Abbattiamo le barriere per rendere l'arte accessibile a ogni individuo." },
+        { t: "Innovazione", d: "Sperimentiamo nuovi linguaggi multimediali e forme espressive." },
+        { t: "Territorio", d: "Radichiamo la cultura negli spazi urbani meno valorizzati." }
+      ].map((v, i) => (
+        <div key={i} className="border-t border-slate-200 pt-8">
+          <span className="text-gold-custom font-mono text-sm">0{i+1}</span>
+          <h3 className="text-2xl font-serif italic my-4 text-midnight">{v.t}</h3>
+          <p className="text-slate-500 font-light leading-relaxed">{v.d}</p>
         </div>
-        
-        <div className="bg-white p-12 rounded-sm shadow-xl border-t-4 border-gold-custom">
-          <h3 className="text-xs tracking-[0.3em] font-bold uppercase text-gold-custom mb-8">Comitato d'Onore</h3>
-          <ul className="space-y-6">
-            {sociOnorari.map(socio => (
-              <li key={socio} className="flex items-center gap-4 group">
-                <span className="w-8 h-[1px] bg-gold-custom group-hover:w-12 transition-all"></span>
-                <span className="text-xl font-serif italic text-midnight">{socio}</span>
-              </li>
-            ))}
-          </ul>
+      ))}
+    </section>
+
+    {/* Sezione Soci (Già esistente ma rifinita) */}
+    <section className="py-24 bg-white shadow-inner">
+      <div className="max-w-4xl mx-auto px-6 text-center">
+        <h2 className="text-3xl font-serif italic mb-12">Il Comitato Scientifico</h2>
+        <div className="flex flex-wrap justify-center gap-12">
+          {["Elena Rossi", "Marco Verdi", "Sofia Neri"].map(s => (
+            <div key={s} className="group cursor-default">
+              <div className="text-xl font-serif text-midnight group-hover:text-gold-custom transition-colors">{s}</div>
+              <div className="text-[9px] uppercase tracking-widest opacity-40">Socio Onorario</div>
+            </div>
+          ))}
         </div>
-      </section>
-    </div>
-  );
-};
+      </div>
+    </section>
+  </div>
+);
 
 export default ChiSiamo;
