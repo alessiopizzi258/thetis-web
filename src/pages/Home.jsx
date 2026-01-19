@@ -1,10 +1,6 @@
 import VisionCard from '../components/ui/VisionCard';
 import { Link } from 'react-router-dom';
 
-// src/pages/Home.jsx
-import VisionCard from '../components/ui/VisionCard';
-import { Link } from 'react-router-dom';
-
 const Home = () => (
   <div className="animate-fade-in">
     {/* Hero Section */}
