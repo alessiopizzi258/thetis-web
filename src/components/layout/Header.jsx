@@ -7,21 +7,14 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // 1. Gestione Scroll per background e colori
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Chiude il menu mobile al cambio pagina
+  // Chiude il menu mobile quando si cambia pagina
   useEffect(() => setMobileMenuOpen(false), [location]);
-
-  // 2. Logica Colore: Se siamo in Home (con hero blu) e non abbiamo scrollato, il testo è BIANCO
-  // Se abbiamo scrollato o siamo in altre pagine, il testo è BLU NOTTE (midnight)
-  const isHomePage = location.pathname === '/';
-  const textColor = (isHomePage && !isScrolled) ? 'text-ivory' : 'text-midnight';
-  const logoColor = (isHomePage && !isScrolled) ? 'text-ivory' : 'text-midnight';
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -31,23 +24,30 @@ const Header = () => {
     { name: 'Chi Siamo', path: '/chi-siamo' },
   ];
 
+  // LOGICA COLORE: Sulle pagine con sfondo blu (Home e Chi Siamo), 
+  // se non abbiamo scrollato, il testo deve essere bianco (ivory).
+  const isDarkPage = location.pathname === '/' || location.pathname === '/chi-siamo';
+  const useWhiteText = isDarkPage && !isScrolled;
+
+  const textColor = useWhiteText ? 'text-ivory' : 'text-midnight';
+  const logoColor = useWhiteText ? 'text-ivory' : 'text-midnight';
+
   return (
     <header className={`fixed w-full z-[100] transition-all duration-500 ${
-      isScrolled ? 'bg-ivory/95 backdrop-blur-md py-4 shadow-md' : 'bg-transparent py-6'
+      isScrolled ? 'bg-ivory/95 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'
     }`}>
       <nav className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* LOGO */}
-        <Link to="/" className={`text-2xl font-serif font-bold tracking-tighter transition-colors ${logoColor}`}>
+        <Link to="/" className={`text-2xl font-serif font-bold tracking-tighter transition-colors duration-500 ${logoColor}`}>
           THETIS<span className="text-gold-custom">.</span>
         </Link>
         
-        {/* DESKTOP MENU */}
+        {/* Menu Desktop */}
         <div className="hidden md:flex space-x-10">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`text-[10px] uppercase tracking-[0.2em] font-bold transition-colors hover:text-gold-custom ${
+              className={`text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-500 hover:text-gold-custom ${
                 location.pathname === link.path ? 'text-gold-custom' : textColor
               }`}
             >
@@ -56,28 +56,28 @@ const Header = () => {
           ))}
         </div>
 
-        {/* MOBILE TOGGLE */}
+        {/* Bottone Mobile (Hamburger) */}
         <button 
-          className="md:hidden p-2 transition-colors"
+          className="md:hidden p-2 z-[110]" 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? (
             <X className="text-midnight" size={28} />
           ) : (
-            <Menu className={textColor} size={28} />
+            <Menu className={`${textColor} transition-colors duration-500`} size={28} />
           )}
         </button>
       </nav>
 
-      {/* MOBILE MENU OVERLAY */}
-      <div className={`fixed inset-0 bg-ivory z-[-1] flex flex-col items-center justify-center space-y-8 transition-transform duration-500 md:hidden ${
-        mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
+      {/* Overlay Menu Mobile */}
+      <div className={`fixed inset-0 bg-ivory z-[105] flex flex-col items-center justify-center space-y-8 transition-all duration-500 md:hidden ${
+        mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
       }`}>
         {navLinks.map((link) => (
           <Link
             key={link.path}
             to={link.path}
-            className={`text-xl uppercase tracking-[0.3em] font-serif italic ${
+            className={`text-2xl uppercase tracking-[0.3em] font-serif italic ${
               location.pathname === link.path ? 'text-gold-custom' : 'text-midnight'
             }`}
           >
@@ -88,3 +88,5 @@ const Header = () => {
     </header>
   );
 };
+
+export default Header;
