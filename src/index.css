@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Invece di usare @apply con bg-ivory che fa fallire PostCSS */
 @layer base {
-  body {
-    background-color: #F9F8F3; /* Hardcoded per sicurezza nel CSS */
-    color: #0F172A;
-    @apply antialiased;
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #F9F8F3; /* Ivory Fallback */
+    color: #0F172A; /* Midnight Fallback */
+    @apply antialiased min-h-screen;
   }
 }
