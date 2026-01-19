@@ -1,19 +1,22 @@
+import ArticleCard from '../components/ui/ArticleCard';
 
-// --- ARTICOLI ---
-export const Articoli = () => (
-  <PageWrapper>
-    <div className="max-w-2xl mx-auto">
-      <h2 className="font-serif text-4xl mb-20 text-center">Archivio del Pensiero</h2>
-      {siteData.articoli.map((art) => (
-        <article key={art.id} className="mb-24 group">
-          <span className="text-[10px] tracking-widest text-gray-400 uppercase">{art.data}</span>
-          <h3 className="font-serif text-3xl mt-2 mb-4 group-hover:italic transition-all duration-300">
-            {art.titolo}
-          </h3>
-          <p className="font-sans leading-relaxed text-gray-600">{art.testo}</p>
-          <div className="mt-6 h-[1px] w-12 bg-[#D4AF37]"></div>
-        </article>
-      ))}
+const Articoli = () => {
+  const articoli = [
+    { id: 1, date: "15 Gen 2026", title: "L'estetica della cura nelle APS", abstract: "Un'analisi su come la bellezza possa diventare strumento di coesione sociale e rigenerazione urbana.", tags: ["Sociale", "Cultura"] },
+    { id: 2, date: "02 Gen 2026", title: "La Ginestra: un anno di resistenza", abstract: "Editoriale di inizio anno sulle sfide del terzo settore nel panorama artistico contemporaneo.", tags: ["Editoriale", "Visioni"] },
+  ];
+
+  return (
+    <div className="py-20 max-w-4xl mx-auto px-6">
+      <div className="text-center mb-20">
+        <h1 className="text-6xl font-serif italic mb-4">La Ginestra</h1>
+        <p className="uppercase tracking-[0.3em] text-gold-custom text-sm">Rivista di Pensiero Critico</p>
+      </div>
+      <div className="space-y-4">
+        {articoli.map(art => <ArticleCard key={art.id} {...art} />)}
+      </div>
     </div>
-  </PageWrapper>
-);
+  );
+};
+
+export default Articoli;
