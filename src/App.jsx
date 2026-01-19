@@ -18,10 +18,11 @@ import Dashboard from './pages/admin/Dashboard';
 
 // Componente per proteggere le rotte admin
 const ProtectedRoute = ({ children, user, loadingAuth }) => {
-  if (loadingAuth) return null; // Evita redirect errati mentre controlliamo la sessione
+  if (loadingAuth) return <div className="h-screen bg-midnight" />; // Mostra uno sfondo invece di nulla
   if (!user) return <Navigate to="/login" replace />;
   return children;
 };
+
 
 function App() {
   const [loading, setLoading] = useState(true); // Loader iniziale sito
