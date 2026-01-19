@@ -1,15 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Invece di usare @apply con bg-ivory che fa fallire PostCSS */
 @layer base {
   body {
-    @apply bg-ivory text-midnight antialiased;
+    background-color: #F9F8F3; /* Hardcoded per sicurezza nel CSS */
+    color: #0F172A;
+    @apply antialiased;
   }
-}
-
-.animate-fade-in {
-  animation: fadeInUp 1s ease-out forwards;
 }
