@@ -13,74 +13,73 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Chiude il menu mobile quando si cambia pagina
   useEffect(() => setMobileMenuOpen(false), [location]);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
     { name: 'Visioni', path: '/visioni' },
     { name: 'Articoli', path: '/articoli' },
     { name: 'Programmazione', path: '/programmazione' },
     { name: 'Chi Siamo', path: '/chi-siamo' },
   ];
 
-  // LOGICA COLORE: Sulle pagine con sfondo blu (Home e Chi Siamo), 
-  // se non abbiamo scrollato, il testo deve essere bianco (ivory).
-  const isDarkPage = location.pathname === '/' || location.pathname === '/chi-siamo';
+  // Identifichiamo le pagine che hanno lo sfondo Midnight (blu scuro)
+  const isDarkPage = 
+    location.pathname === '/' || 
+    location.pathname === '/chi-siamo' || 
+    location.pathname.startsWith('/visioni/'); // Anche il dettaglio visioni è scuro
+
   const useWhiteText = isDarkPage && !isScrolled;
 
-  const textColor = useWhiteText ? 'text-ivory' : 'text-midnight';
-  const logoColor = useWhiteText ? 'text-ivory' : 'text-midnight';
-
   return (
-    <header className={`fixed w-full z-[100] transition-all duration-500 ${
-      isScrolled ? 'bg-ivory/95 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'
+    <header className={`fixed w-full z-[100] transition-all duration-700 ${
+      isScrolled ? 'bg-ivory/90 backdrop-blur-lg py-4 shadow-md' : 'bg-transparent py-8'
     }`}>
       <nav className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className={`text-2xl font-serif font-bold tracking-tighter transition-colors duration-500 ${logoColor}`}>
-          THETIS<span className="text-gold-custom">.</span>
+        
+        {/* LOGO AREA */}
+        <Link to="/" className="group flex items-center gap-3">
+          {/* Quando avrai il logo, sostituisci questo div con: 
+              <img src="/logo-white.svg" className={`h-8 ${useWhiteText ? 'block' : 'hidden'}`} />
+              <img src="/logo-dark.svg" className={`h-8 ${useWhiteText ? 'hidden' : 'block'}`} /> 
+          */}
+          <div className={`text-2xl font-serif font-bold tracking-tighter transition-colors duration-500 ${useWhiteText ? 'text-ivory' : 'text-midnight'}`}>
+            THETIS<span className="text-gold-custom group-hover:animate-pulse">.</span>
+          </div>
         </Link>
         
         {/* Menu Desktop */}
-        <div className="hidden md:flex space-x-10">
+        <div className="hidden md:flex items-center space-x-12">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`text-[10px] uppercase tracking-[0.2em] font-bold transition-colors duration-500 hover:text-gold-custom ${
-                location.pathname === link.path ? 'text-gold-custom' : textColor
+              className={`text-[10px] uppercase tracking-[0.3em] font-bold transition-all duration-500 hover:text-gold-custom relative group ${
+                location.pathname === link.path ? 'text-gold-custom' : useWhiteText ? 'text-ivory' : 'text-midnight'
               }`}
             >
               {link.name}
+              <span className={`absolute -bottom-2 left-0 w-0 h-[1px] bg-gold-custom transition-all duration-500 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
             </Link>
           ))}
+          
+          {/* Call to Action opzionale: Sostienici / Area Riservata corta */}
+          <Link to="/login" className={`p-2 rounded-full border transition-all ${useWhiteText ? 'border-ivory/20 hover:bg-ivory/10' : 'border-midnight/10 hover:bg-midnight/5'}`}>
+             <div className={`w-2 h-2 rounded-full ${useWhiteText ? 'bg-ivory' : 'bg-midnight'}`}></div>
+          </Link>
         </div>
 
-        {/* Bottone Mobile (Hamburger) */}
-        <button 
-          className="md:hidden p-2 z-[110]" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? (
-            <X className="text-midnight" size={28} />
-          ) : (
-            <Menu className={`${textColor} transition-colors duration-500`} size={28} />
-          )}
+        {/* Bottone Mobile */}
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden z-[110]">
+          {mobileMenuOpen ? <X size={28} /> : <Menu className={useWhiteText ? 'text-ivory' : 'text-midnight'} size={28} />}
         </button>
       </nav>
 
-      {/* Overlay Menu Mobile */}
-      <div className={`fixed inset-0 bg-ivory z-[105] flex flex-col items-center justify-center space-y-8 transition-all duration-500 md:hidden ${
-        mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+      {/* Menu Mobile */}
+      <div className={`fixed inset-0 bg-midnight text-ivory z-[105] flex flex-col items-center justify-center space-y-10 transition-all duration-700 md:hidden ${
+        mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
       }`}>
         {navLinks.map((link) => (
-          <Link
-            key={link.path}
-            to={link.path}
-            className={`text-2xl uppercase tracking-[0.3em] font-serif italic ${
-              location.pathname === link.path ? 'text-gold-custom' : 'text-midnight'
-            }`}
-          >
+          <Link key={link.path} to={link.path} className="text-3xl font-serif italic hover:text-gold-custom transition-colors">
             {link.name}
           </Link>
         ))}

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ReactLenis } from '@studio-freight/react-lenis';
 import { useState, useEffect } from 'react';
-import { supabase } from './lib/supabaseClient'; // Importa il client che abbiamo creato
+import { supabase } from './lib/supabaseClient';
 
 // Layout & Pages
 import Header from './components/layout/Header';
@@ -12,49 +12,46 @@ import Articoli from './pages/Articoli';
 import Programmazione from './pages/Programmazione';
 import ChiSiamo from './pages/ChiSiamo';
 
+// Single Pages (Dettagli)
+import ArticoloSingolo from './pages/ArticoloSingolo';
+import EventoSingolo from './pages/EventoSingolo';
+import VisioneSingola from './pages/VisioneSingola';
+
 // Admin Pages
 import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
 
-// Componente per proteggere le rotte admin
 const ProtectedRoute = ({ children, user, loadingAuth }) => {
-  if (loadingAuth) return <div className="h-screen bg-midnight" />; // Mostra uno sfondo invece di nulla
+  if (loadingAuth) return <div className="fixed inset-0 bg-midnight" />; 
   if (!user) return <Navigate to="/login" replace />;
   return children;
 };
 
-
 function App() {
-  const [loading, setLoading] = useState(true); // Loader iniziale sito
-  const [user, setUser] = useState(null); // Stato utente reale
-  const [loadingAuth, setLoadingAuth] = useState(true); // Stato controllo sessione
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [loadingAuth, setLoadingAuth] = useState(true);
 
   useEffect(() => {
-    // 1. Controlla se esiste già una sessione attiva al caricamento
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
       setLoadingAuth(false);
     };
-
     checkUser();
 
-    // 2. Ascolta i cambiamenti di autenticazione (Login/Logout)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
       setLoadingAuth(false);
     });
 
-    // 3. Timer per l'animazione d'entrata "Thetis"
     const timer = setTimeout(() => setLoading(false), 2000);
-
     return () => {
       subscription.unsubscribe();
       clearTimeout(timer);
     };
   }, []);
 
-  // Schermata di caricamento "Emotional"
   if (loading) {
     return (
       <div className="fixed inset-0 bg-midnight z-[999] flex items-center justify-center">
@@ -69,12 +66,10 @@ function App() {
   return (
     <ReactLenis root>
       <Router>
-        <div className="flex flex-col min-h-screen bg-ivory">
+        <div className="flex flex-col min-h-screen bg-ivory selection:bg-gold-custom selection:text-white">
           <Routes>
-            {/* Rotta Login */}
+            {/* Auth & Admin */}
             <Route path="/login" element={user ? <Navigate to="/admin" /> : <Login />} />
-
-            {/* Rotte Admin Protette */}
             <Route 
               path="/admin/*" 
               element={
@@ -84,17 +79,26 @@ function App() {
               } 
             />
             
-            {/* Tutte le altre rotte pubbliche */}
+            {/* Public Layout */}
             <Route path="*" element={
               <>
                 <Header />
                 <main className="flex-grow">
                   <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/visioni" element={<Visioni />} />
-                    <Route path="/articoli" element={<Articoli />} />
-                    <Route path="/programmazione" element={<Programmazione />} />
                     <Route path="/chi-siamo" element={<ChiSiamo />} />
+                    
+                    {/* Visioni (Multimedia) */}
+                    <Route path="/visioni" element={<Visioni />} />
+                    <Route path="/visioni/:id" element={<VisioneSingola />} />
+                    
+                    {/* Articoli (Rivista) */}
+                    <Route path="/articoli" element={<Articoli />} />
+                    <Route path="/articoli/:id" element={<ArticoloSingolo />} />
+                    
+                    {/* Programmazione (Eventi) */}
+                    <Route path="/programmazione" element={<Programmazione />} />
+                    <Route path="/programmazione/:id" element={<EventoSingolo />} />
                   </Routes>
                 </main>
                 <Footer />

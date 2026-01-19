@@ -1,29 +1,42 @@
-const ArticleCard = ({ date, title, abstract, tags }) => (
-  <div className="group py-12 border-b border-midnight/10 flex flex-col md:flex-row gap-8 items-start hover:bg-gold-custom/[0.02] transition-colors px-4">
-    <div className="w-32 pt-1">
-      <span className="text-xs font-bold tracking-[0.2em] text-gold-custom uppercase">
-        {date}
-      </span>
-    </div>
-    <div className="flex-1">
-      <div className="flex gap-2 mb-3">
-        {tags.map(tag => (
-          <span key={tag} className="text-[10px] uppercase tracking-widest bg-midnight/5 px-2 py-1 text-midnight/60">
-            {tag}
-          </span>
-        ))}
+import { Link } from 'react-router-dom';
+
+const ArticleCard = ({ id, date, title, abstract, tags }) => {
+  return (
+    <div className="group border-b border-midnight/5 pb-16 last:border-0">
+      <div className="flex flex-col md:flex-row gap-8 items-start">
+        <div className="flex-1">
+          <div className="flex items-center gap-4 mb-4">
+            <span className="text-gold-custom font-mono text-xs tracking-tighter">{date}</span>
+            <div className="flex gap-2">
+              {tags?.map(tag => (
+                <span key={tag} className="text-[9px] uppercase tracking-widest px-2 py-1 bg-midnight/5 opacity-50 font-bold">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          {/* Il Titolo ora è un Link */}
+          <Link to={`/articoli/${id}`}>
+            <h2 className="text-4xl font-serif italic mb-6 group-hover:text-gold-custom transition-colors cursor-pointer leading-tight">
+              {title}
+            </h2>
+          </Link>
+          
+          <p className="text-slate-500 font-light leading-relaxed mb-8 max-w-2xl text-lg">
+            {abstract}
+          </p>
+          
+          <Link 
+            to={`/articoli/${id}`}
+            className="text-[10px] uppercase tracking-[0.4em] font-bold border-b border-gold-custom pb-2 hover:text-gold-custom transition-all"
+          >
+            Leggi l'articolo
+          </Link>
+        </div>
       </div>
-      <h2 className="text-3xl font-serif text-midnight mb-4 group-hover:text-gold-custom transition-colors">
-        {title}
-      </h2>
-      <p className="text-slate-600 font-light leading-relaxed max-w-2xl">
-        {abstract}
-      </p>
-      <button className="mt-6 text-xs uppercase tracking-widest font-bold border-b border-gold-custom pb-1 hover:text-gold-custom transition-colors">
-        Leggi l'articolo
-      </button>
     </div>
-  </div>
-);
+  );
+};
 
 export default ArticleCard;
