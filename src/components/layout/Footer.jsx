@@ -8,56 +8,47 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
           
-          {/* Brand & Mission */}
           <div className="md:col-span-1">
-            <h3 className="font-serif text-3xl mb-6">Thetis<span className="text-gold-custom">.</span></h3>
-            <p className="text-sm opacity-50 font-light leading-relaxed">
-              Associazione di Promozione Sociale dedicata alla diffusione della cultura, 
-              dell'arte e del pensiero critico come strumenti di emancipazione collettiva.
+            <h3 className="font-serif text-3xl mb-6">Thétis<span className="text-gold-custom">.</span></h3>
+            <p className="text-sm opacity-50 font-light leading-relaxed italic">
+              "Vesti la vita, annoda il cancro". Promuoviamo la cultura, l'arte e il sociale 
+              nel cuore della Calabria e oltre.
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="uppercase tracking-[0.2em] text-[10px] font-bold mb-8 text-gold-custom">Navigazione</h4>
             <ul className="space-y-4 text-sm font-light opacity-70">
-              <li><Link to="/visioni" className="hover:text-gold-custom transition-colors">Visioni Multimedia</Link></li>
-              <li><Link to="/articoli" className="hover:text-gold-custom transition-colors">La Ginestra Rivista</Link></li>
-              <li><Link to="/programmazione" className="hover:text-gold-custom transition-colors">Prossimi Eventi</Link></li>
-              <li><Link to="/chi-siamo" className="hover:text-gold-custom transition-colors">Il Progetto</Link></li>
+              <li><Link to="/visioni" className="hover:text-gold-custom">Visioni</Link></li>
+              <li><Link to="/articoli" className="hover:text-gold-custom">Rivista La Ginestra</Link></li>
+              <li><Link to="/programmazione" className="hover:text-gold-custom">Agenda</Link></li>
+              <li><Link to="/chi-siamo" className="hover:text-gold-custom">Chi Siamo</Link></li>
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="uppercase tracking-[0.2em] text-[10px] font-bold mb-8 text-gold-custom">Contatti</h4>
             <div className="space-y-4 text-sm font-light opacity-70">
-              <p>Via dell'Arte, 25<br />00100 Roma (RM)</p>
-              <p className="hover:text-gold-custom"><a href="mailto:info@thetis-aps.it">info@thetis-aps.it</a></p>
-              <p>+39 06 123 4567</p>
+              <p>Area Grecanica<br />Reggio Calabria (RC)</p>
+              <p className="hover:text-gold-custom font-mono text-xs">thetis.associazioneculturale@gmail.com</p>
             </div>
           </div>
 
-          {/* Social */}
           <div>
             <h4 className="uppercase tracking-[0.2em] text-[10px] font-bold mb-8 text-gold-custom">Seguici</h4>
             <div className="flex flex-col space-y-4 text-sm font-light opacity-70">
-              <a href="#" className="hover:text-gold-custom transition-colors flex items-center gap-2">Instagram</a>
-              <a href="#" className="hover:text-gold-custom transition-colors flex items-center gap-2">Facebook</a>
-              <a href="#" className="hover:text-gold-custom transition-colors flex items-center gap-2">LinkedIn</a>
+              <a href="https://www.facebook.com/associazionethetis" target="_blank" className="hover:text-gold-custom">Facebook</a>
+              <a href="#" className="hover:text-gold-custom">Instagram</a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 border-t border-ivory/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-[9px] uppercase tracking-widest opacity-40">
-            © {currentYear} THETIS APS — Tutti i diritti riservati
+          <div className="text-[9px] uppercase tracking-widest opacity-40 italic">
+            © {currentYear} THETIS APS — Progetto "Vesti la vita, annoda il cancro" for AIRC
           </div>
           <div className="text-[9px] uppercase tracking-widest opacity-40 flex gap-8">
-            <span className="hover:text-gold-custom cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-gold-custom cursor-pointer">Cookie Policy</span>
-            <Link to="/login" className="hover:text-gold-custom transition-colors">Admin Access</Link>
+            <Link to="/login" className="hover:text-gold-custom transition-colors border-b border-gold-custom/20">Admin Access</Link>
           </div>
         </div>
       </div>
